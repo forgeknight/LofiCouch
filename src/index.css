@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+/* ═══ Keyframe Animations ═══ */
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -50px) scale(1.1); }
+  50% { transform: translate(-20px, 20px) scale(0.9); }
+  75% { transform: translate(20px, 50px) scale(1.05); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+@keyframes breathe-delay {
+  0%, 100% { transform: scale(1.1); opacity: 0.2; }
+  50% { transform: scale(1.55); opacity: 0.4; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes vhs-flicker {
+  0%, 100% { opacity: 0.04; }
+  50% { opacity: 0.06; }
+  75% { opacity: 0.02; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ═══ Animation Classes ═══ */
+
+.animate-blob {
+  animation: blob 8s infinite ease-in-out;
+}
+
+.animate-breathe {
+  animation: breathe 5s infinite ease-in-out;
+}
+
+.animate-breathe-delay {
+  animation: breathe-delay 5s infinite ease-in-out;
+  animation-delay: 0.6s;
+}
+
+.animate-float {
+  animation: float 4s infinite ease-in-out;
+}
+
+.animate-in {
+  animation: fade-in-up 0.4s ease-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* ═══ Custom Scrollbar ═══ */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ═══ Selection ═══ */
+
+::selection {
+  background: rgba(245, 158, 11, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ═══ Focus ═══ */
+
+*:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ═══ Range Input ═══ */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 20px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  margin-top: -4.5px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+/* ═══ Body ═══ */
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #050510;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* ═══ Smooth transitions ═══ */
+
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══ Spin override for vinyl ═══ */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
