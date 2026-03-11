@@ -7,7 +7,7 @@ import { Clock } from './components/Clock';
 import { QuoteDisplay } from './components/QuoteDisplay';
 import { TodoWidget } from './components/TodoWidget';
 import { SceneSelector } from './components/SceneSelector';
-import { PomodoroTimer } from './components/PomodoroTimer';
+import { ClockTimer } from './components/ClockTimer';
 import { lofiEngine, TRACK_CONFIGS, type VibeId } from './lofiEngine';
 
 // ── Scene configurations ──────────────────────────────────────────
@@ -100,13 +100,12 @@ const sceneStyles: Record<VibeId, SceneStyle> = {
 };
 
 // ── SVG Scenes ──────────────────────────────────────────────
-
 function SceneSVG({ vibe }: { vibe: VibeId }) {
   const baseClass = "absolute bottom-0 left-0 right-0 pointer-events-none transition-opacity duration-[3000ms]";
 
   if (vibe === 'midnight') {
     return (
-      <div className={`${baseClass} h-72 opacity-[0.18]`}>
+      <div className={`${baseClass} h-48 sm:h-72 opacity-[0.18]`}>
         <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
           {[50,130,240,350,500,650,750,880,980,1080].map((x, i) => {
             const h = 100 + (i % 4) * 35;
@@ -134,7 +133,7 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'sunset') {
     return (
-      <div className={`${baseClass} h-80 opacity-[0.22]`}>
+      <div className={`${baseClass} h-56 sm:h-80 opacity-[0.22]`}>
         <svg viewBox="0 0 1200 320" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
           <defs>
             <linearGradient id="sunGrad" x1="0" y1="0" x2="0" y2="1">
@@ -155,7 +154,7 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'forest') {
     return (
-      <div className={`${baseClass} h-80 opacity-[0.18]`}>
+      <div className={`${baseClass} h-56 sm:h-80 opacity-[0.18]`}>
         <svg viewBox="0 0 1200 320" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
           {[60,160,280,400,520,640,760,880,1000,1100].map((x, i) => {
             const h = 80 + (i % 4) * 35;
@@ -181,7 +180,7 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'ocean') {
     return (
-      <div className={`${baseClass} h-72 opacity-[0.18]`}>
+      <div className={`${baseClass} h-48 sm:h-72 opacity-[0.18]`}>
         <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
           <circle cx="600" cy="40" r="18" fill="rgba(180,200,255,0.1)" />
           {[0, 1, 2].map(i => (
@@ -205,7 +204,7 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'cafe') {
     return (
-      <div className={`${baseClass} h-72 opacity-[0.18]`}>
+      <div className={`${baseClass} h-48 sm:h-72 opacity-[0.18]`}>
         <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
           <rect x="250" y="40" width="700" height="260" rx="8" fill="none" stroke="rgba(180,140,80,0.12)" strokeWidth="3" />
           <line x1="600" y1="40" x2="600" y2="300" stroke="rgba(180,140,80,0.08)" strokeWidth="2" />
@@ -215,9 +214,6 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
           <path d="M563,240 Q558,224 566,214" fill="none" stroke="rgba(200,180,150,0.08)" strokeWidth="2">
             <animate attributeName="d" values="M563,240 Q558,224 566,214;M563,240 Q568,222 560,210;M563,240 Q558,224 566,214" dur="3s" repeatCount="indefinite" />
           </path>
-          <path d="M580,240 Q584,222 577,210" fill="none" stroke="rgba(200,180,150,0.06)" strokeWidth="2">
-            <animate attributeName="d" values="M580,240 Q584,222 577,210;M580,240 Q576,224 583,212;M580,240 Q584,222 577,210" dur="4s" repeatCount="indefinite" />
-          </path>
         </svg>
       </div>
     );
@@ -225,7 +221,7 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'rain') {
     return (
-      <div className={`${baseClass} h-72 opacity-[0.15]`}>
+      <div className={`${baseClass} h-48 sm:h-72 opacity-[0.15]`}>
         <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
           {[200, 500, 800, 1000].map((x, i) => (
             <ellipse key={i} cx={x} cy={290} rx={40 + i * 10} ry={4} fill="rgba(120,150,200,0.08)">
@@ -236,13 +232,9 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
           <rect x="115" y="175" width="14" height="18" fill="rgba(255,200,100,0.1)" />
           <rect x="140" y="175" width="14" height="18" fill="rgba(255,200,100,0.15)" />
           <rect x="400" y="120" width="100" height="180" rx="3" fill="rgba(55,65,85,0.2)" />
-          <rect x="420" y="135" width="10" height="14" fill="rgba(255,200,100,0.1)" />
           <rect x="700" y="140" width="90" height="160" rx="3" fill="rgba(50,60,80,0.2)" />
-          <rect x="715" y="155" width="12" height="16" fill="rgba(255,200,100,0.12)" />
-          <rect x="950" y="170" width="80" height="130" rx="3" fill="rgba(55,65,85,0.18)" />
           <rect x="598" y="200" width="4" height="100" fill="rgba(100,100,100,0.15)" />
           <circle cx="600" cy="195" r="12" fill="rgba(255,220,150,0.06)" />
-          <circle cx="600" cy="195" r="4" fill="rgba(255,220,150,0.12)" />
         </svg>
       </div>
     );
@@ -263,7 +255,6 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
             </circle>
           ))}
           <ellipse cx="400" cy="250" rx="200" ry="100" fill="rgba(139,92,246,0.03)" />
-          <ellipse cx="800" cy="350" rx="150" ry="80" fill="rgba(99,102,241,0.02)" />
           <circle cx="900" cy="150" r="30" fill="rgba(139,92,246,0.08)" />
           <ellipse cx="900" cy="150" rx="50" ry="6" fill="none" stroke="rgba(192,132,252,0.06)" strokeWidth="2" transform="rotate(-15, 900, 150)" />
         </svg>
@@ -273,7 +264,7 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'sakura') {
     return (
-      <div className={`${baseClass} h-80 opacity-[0.2]`}>
+      <div className={`${baseClass} h-56 sm:h-80 opacity-[0.2]`}>
         <svg viewBox="0 0 1200 320" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
           {[150, 400, 700, 1000].map((x, i) => (
             <g key={i}>
@@ -290,17 +281,11 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
               <ellipse cx={x} cy={320 - 140 - i * 10} rx={55 + i * 5} ry={35} fill="rgba(255,180,200,0.06)" />
             </g>
           ))}
-          <rect x="555" y="200" width="8" height="120" fill="rgba(200,50,50,0.12)" />
-          <rect x="637" y="200" width="8" height="120" fill="rgba(200,50,50,0.12)" />
-          <rect x="545" y="195" width="110" height="8" rx="2" fill="rgba(200,50,50,0.15)" />
-          <rect x="550" y="215" width="100" height="5" rx="1" fill="rgba(200,50,50,0.1)" />
           {Array.from({ length: 8 }).map((_, i) => (
             <ellipse key={i} cx={100 + i * 130} cy={80 + (i % 3) * 60} rx="4" ry="2"
               fill="rgba(255,180,200,0.15)" transform={`rotate(${i * 30}, ${100 + i * 130}, ${80 + (i % 3) * 60})`}>
               <animate attributeName="cy" values={`${80 + (i % 3) * 60};${280};${80 + (i % 3) * 60}`}
                 dur={`${4 + i * 0.8}s`} repeatCount="indefinite" />
-              <animate attributeName="cx" values={`${100 + i * 130};${120 + i * 130};${100 + i * 130}`}
-                dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
             </ellipse>
           ))}
         </svg>
@@ -310,28 +295,21 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'nostalgic') {
     return (
-      <div className={`${baseClass} h-72 opacity-[0.15]`}>
+      <div className={`${baseClass} h-48 sm:h-72 opacity-[0.15]`}>
         <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
-          {/* VHS scanlines overlay effect */}
           {Array.from({ length: 40 }).map((_, i) => (
             <rect key={i} x="0" y={i * 7.5} width="1200" height="1" fill="rgba(255,255,255,0.015)" />
           ))}
-          {/* Old TV / window */}
           <rect x="350" y="80" width="500" height="200" rx="15" fill="rgba(80,60,100,0.1)" stroke="rgba(120,100,140,0.1)" strokeWidth="4" />
           <rect x="360" y="90" width="480" height="180" rx="6" fill="rgba(40,30,60,0.15)" />
-          {/* Stars outside window */}
           {[400, 450, 520, 600, 680, 750, 800].map((x, i) => (
             <circle key={i} cx={x} cy={120 + (i % 3) * 30} r={1 + (i % 2)} fill={`rgba(200,180,255,${0.1 + (i % 3) * 0.05})`}>
               <animate attributeName="opacity" values="0.05;0.2;0.05" dur={`${2 + i * 0.6}s`} repeatCount="indefinite" />
             </circle>
           ))}
-          {/* Old cassette tape */}
           <rect x="520" y="255" width="70" height="40" rx="4" fill="rgba(100,80,60,0.12)" />
           <circle cx="540" cy="275" r="8" fill="none" stroke="rgba(150,120,90,0.1)" strokeWidth="2" />
           <circle cx="570" cy="275" r="8" fill="none" stroke="rgba(150,120,90,0.1)" strokeWidth="2" />
-          <circle cx="540" cy="275" r="3" fill="rgba(150,120,90,0.08)" />
-          <circle cx="570" cy="275" r="3" fill="rgba(150,120,90,0.08)" />
-          <rect x="530" y="260" width="50" height="4" rx="1" fill="rgba(120,100,80,0.08)" />
         </svg>
       </div>
     );
@@ -339,21 +317,14 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'nineties') {
     return (
-      <div className={`${baseClass} h-72 opacity-[0.18]`}>
+      <div className={`${baseClass} h-48 sm:h-72 opacity-[0.18]`}>
         <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
-          {/* Boombox */}
           <rect x="450" y="180" width="300" height="110" rx="10" fill="rgba(80,40,40,0.15)" />
           <circle cx="520" cy="235" r="30" fill="rgba(60,30,30,0.12)" stroke="rgba(100,50,50,0.08)" strokeWidth="3" />
           <circle cx="520" cy="235" r="15" fill="rgba(80,40,40,0.1)" />
-          <circle cx="520" cy="235" r="5" fill="rgba(120,60,60,0.1)" />
           <circle cx="680" cy="235" r="30" fill="rgba(60,30,30,0.12)" stroke="rgba(100,50,50,0.08)" strokeWidth="3" />
           <circle cx="680" cy="235" r="15" fill="rgba(80,40,40,0.1)" />
-          <circle cx="680" cy="235" r="5" fill="rgba(120,60,60,0.1)" />
-          {/* Cassette window */}
           <rect x="560" y="205" width="80" height="25" rx="3" fill="rgba(40,20,20,0.12)" />
-          <circle cx="582" cy="218" r="6" fill="none" stroke="rgba(120,80,80,0.08)" strokeWidth="1.5" />
-          <circle cx="618" cy="218" r="6" fill="none" stroke="rgba(120,80,80,0.08)" strokeWidth="1.5" />
-          {/* EQ bars on top */}
           {Array.from({ length: 10 }).map((_, i) => (
             <rect key={i} x={560 + i * 8} y={195 - (3 + (i % 4) * 4)} width="5" height={3 + (i % 4) * 4}
               fill={`rgba(255,${100 + (i % 3) * 50},${50 + (i % 2) * 50},0.1)`}>
@@ -361,10 +332,8 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
                 dur={`${0.5 + i * 0.1}s`} repeatCount="indefinite" />
             </rect>
           ))}
-          {/* Graffiti-style abstract shapes */}
           <circle cx="200" cy="250" r="25" fill="none" stroke="rgba(255,100,50,0.06)" strokeWidth="3" />
           <circle cx="1000" cy="230" r="20" fill="none" stroke="rgba(100,255,100,0.06)" strokeWidth="3" />
-          <polygon points="150,200 180,160 210,200" fill="rgba(255,200,50,0.04)" />
         </svg>
       </div>
     );
@@ -372,57 +341,31 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'ghibli') {
     return (
-      <div className={`${baseClass} h-80 opacity-[0.2]`}>
+      <div className={`${baseClass} h-56 sm:h-80 opacity-[0.2]`}>
         <svg viewBox="0 0 1200 320" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
-          {/* Rolling green hills */}
           <ellipse cx="300" cy="320" rx="400" ry="120" fill="rgba(40,100,50,0.15)" />
           <ellipse cx="800" cy="320" rx="500" ry="100" fill="rgba(35,90,45,0.12)" />
           <ellipse cx="600" cy="340" rx="700" ry="80" fill="rgba(30,80,40,0.18)" />
-          {/* Small cottage */}
           <rect x="530" y="200" width="60" height="50" fill="rgba(120,80,50,0.1)" />
           <polygon points="525,200 560,170 595,200" fill="rgba(140,60,40,0.1)" />
           <rect x="550" y="220" width="12" height="15" fill="rgba(255,220,150,0.08)" />
-          <rect x="570" y="215" width="8" height="8" fill="rgba(255,220,150,0.06)" />
-          {/* Chimney with smoke */}
           <rect x="575" y="175" width="8" height="20" fill="rgba(100,70,50,0.1)" />
           <circle cx="579" cy="168" r="5" fill="rgba(200,200,200,0.04)">
             <animate attributeName="cy" values="168;155;168" dur="4s" repeatCount="indefinite" />
-            <animate attributeName="r" values="5;8;5" dur="4s" repeatCount="indefinite" />
           </circle>
-          <circle cx="582" cy="158" r="4" fill="rgba(200,200,200,0.03)">
-            <animate attributeName="cy" values="158;142;158" dur="5s" repeatCount="indefinite" />
-          </circle>
-          {/* Totoro-like forest spirits (dots) */}
           {[180, 320, 500, 750, 950, 1050].map((x, i) => (
             <g key={i}>
               <circle cx={x} cy={260 - (i % 3) * 15} r={3 + (i % 2) * 2} fill="rgba(200,255,220,0.06)">
                 <animate attributeName="opacity" values="0.03;0.1;0.03" dur={`${3 + i * 0.7}s`} repeatCount="indefinite" />
               </circle>
-              {/* Eyes */}
               <circle cx={x - 1} cy={259 - (i % 3) * 15} r="0.5" fill="rgba(255,255,255,0.08)" />
               <circle cx={x + 1} cy={259 - (i % 3) * 15} r="0.5" fill="rgba(255,255,255,0.08)" />
             </g>
           ))}
-          {/* Floating dandelion seeds */}
-          {Array.from({ length: 6 }).map((_, i) => (
-            <g key={i}>
-              <line x1={200 + i * 160} y1={100 + (i % 3) * 40} x2={200 + i * 160} y2={95 + (i % 3) * 40}
-                stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-              <circle cx={200 + i * 160} cy={94 + (i % 3) * 40} r="2" fill="rgba(255,255,255,0.04)">
-                <animate attributeName="cy" values={`${94 + (i % 3) * 40};${80 + (i % 3) * 40};${94 + (i % 3) * 40}`}
-                  dur={`${5 + i}s`} repeatCount="indefinite" />
-                <animate attributeName="cx" values={`${200 + i * 160};${210 + i * 160};${200 + i * 160}`}
-                  dur={`${7 + i}s`} repeatCount="indefinite" />
-              </circle>
-            </g>
-          ))}
-          {/* Clouds */}
           {[150, 500, 900].map((x, i) => (
-            <g key={i}>
-              <ellipse cx={x} cy={60 + i * 15} rx={50 + i * 10} ry={15} fill="rgba(255,255,255,0.03)">
-                <animate attributeName="cx" values={`${x};${x + 20};${x}`} dur={`${15 + i * 5}s`} repeatCount="indefinite" />
-              </ellipse>
-            </g>
+            <ellipse key={i} cx={x} cy={60 + i * 15} rx={50 + i * 10} ry={15} fill="rgba(255,255,255,0.03)">
+              <animate attributeName="cx" values={`${x};${x + 20};${x}`} dur={`${15 + i * 5}s`} repeatCount="indefinite" />
+            </ellipse>
           ))}
         </svg>
       </div>
@@ -431,17 +374,14 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'library') {
     return (
-      <div className={`${baseClass} h-72 opacity-[0.15]`}>
+      <div className={`${baseClass} h-48 sm:h-72 opacity-[0.15]`}>
         <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
-          {/* Bookshelves */}
           {[100, 350, 600, 850].map((x, i) => (
             <g key={i}>
               <rect x={x} y="80" width="200" height="220" fill="rgba(60,45,35,0.1)" rx="2" />
-              {/* Shelves */}
               {[130, 180, 230].map((sy, si) => (
                 <g key={si}>
                   <rect x={x} y={sy} width="200" height="3" fill="rgba(90,70,50,0.1)" />
-                  {/* Books */}
                   {Array.from({ length: 8 + (si % 3) }).map((_, bi) => {
                     const bw = 8 + (bi % 4) * 4;
                     const bx = x + 5 + bi * 22;
@@ -456,15 +396,10 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
               ))}
             </g>
           ))}
-          {/* Desk lamp */}
           <rect x="560" y="260" width="80" height="8" rx="2" fill="rgba(80,60,40,0.1)" />
           <rect x="597" y="230" width="6" height="30" fill="rgba(80,60,40,0.08)" />
           <ellipse cx="600" cy="228" rx="20" ry="8" fill="rgba(255,220,150,0.06)" />
-          {/* Warm glow */}
           <circle cx="600" cy="260" r="60" fill="rgba(255,200,100,0.03)" />
-          {/* Open book */}
-          <path d="M570,268 Q580,262 590,268 L590,280 Q580,275 570,280 Z" fill="rgba(220,210,190,0.06)" />
-          <path d="M590,268 Q600,262 610,268 L610,280 Q600,275 590,280 Z" fill="rgba(210,200,180,0.06)" />
         </svg>
       </div>
     );
@@ -472,9 +407,8 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 
   if (vibe === 'train') {
     return (
-      <div className={`${baseClass} h-80 opacity-[0.18]`}>
+      <div className={`${baseClass} h-56 sm:h-80 opacity-[0.18]`}>
         <svg viewBox="0 0 1200 320" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
-          {/* Stars */}
           {Array.from({ length: 40 }).map((_, i) => (
             <circle key={i} cx={(i * 97.3 + 30) % 1200} cy={(i * 43.7 + 10) % 150}
               r={0.5 + (i % 3) * 0.3} fill={`rgba(220,210,255,${0.08 + (i % 4) * 0.04})`}>
@@ -482,19 +416,14 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
                 dur={`${2 + (i % 5)}s`} repeatCount="indefinite" />
             </circle>
           ))}
-          {/* Moon */}
           <circle cx="950" cy="60" r="25" fill="rgba(255,240,210,0.08)" />
           <circle cx="958" cy="55" r="22" fill="rgba(10,5,20,0.9)" />
-          {/* Hills/landscape passing by */}
           <polygon points="0,280 200,220 400,260 600,200 800,250 1000,210 1200,240 1200,320 0,320"
             fill="rgba(20,15,30,0.2)" />
-          {/* Train window frame */}
           <rect x="150" y="180" width="900" height="130" rx="5" fill="rgba(40,30,50,0.1)"
             stroke="rgba(80,60,100,0.08)" strokeWidth="3" />
-          {/* Window dividers */}
           <line x1="450" y1="180" x2="450" y2="310" stroke="rgba(80,60,100,0.06)" strokeWidth="3" />
           <line x1="750" y1="180" x2="750" y2="310" stroke="rgba(80,60,100,0.06)" strokeWidth="3" />
-          {/* Raindrops on window */}
           {Array.from({ length: 12 }).map((_, i) => (
             <circle key={i} cx={180 + i * 75} cy={200 + (i % 4) * 25} r={1.5 + (i % 2)}
               fill="rgba(180,190,220,0.06)">
@@ -502,7 +431,6 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
                 dur={`${2 + i * 0.3}s`} repeatCount="indefinite" />
             </circle>
           ))}
-          {/* Distant lights */}
           {[300, 550, 850].map((x, i) => (
             <circle key={i} cx={x} cy={230 + i * 5} r={2} fill="rgba(255,200,100,0.08)">
               <animate attributeName="opacity" values="0.03;0.1;0.03" dur={`${4 + i * 2}s`} repeatCount="indefinite" />
@@ -517,20 +445,19 @@ function SceneSVG({ vibe }: { vibe: VibeId }) {
 }
 
 // ── Breathing Circle ──────────────────────────────────────────────
-
 function BreathingCircle({ color }: { color: string }) {
   return (
-    <div className="flex flex-col items-center gap-2.5">
-      <div className="relative w-16 h-16">
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative w-12 h-12 sm:w-16 sm:h-16">
         <div className="absolute inset-0 rounded-full animate-breathe"
           style={{ background: `radial-gradient(circle, ${color}15, transparent 70%)` }} />
         <div className="absolute inset-2 rounded-full animate-breathe-delay"
           style={{ background: `radial-gradient(circle, ${color}10, transparent 70%)` }} />
         <div className="absolute inset-0 flex items-center justify-center">
-          <Sparkles className="w-4 h-4 text-white/15" />
+          <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white/15" />
         </div>
       </div>
-      <p className="text-white/10 text-[10px] tracking-[0.3em] uppercase" style={{ fontFamily: 'Nunito, sans-serif' }}>
+      <p className="text-white/10 text-[9px] sm:text-[10px] tracking-[0.3em] uppercase" style={{ fontFamily: 'Nunito, sans-serif' }}>
         breathe
       </p>
     </div>
@@ -538,7 +465,6 @@ function BreathingCircle({ color }: { color: string }) {
 }
 
 // ── Main App ──────────────────────────────────────────────────────
-
 export function App() {
   const [vibe, setVibe] = useState<VibeId>('midnight');
   const [loaded, setLoaded] = useState(false);
@@ -591,7 +517,7 @@ export function App() {
   const style = sceneStyles[vibe];
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen min-h-[100dvh] relative overflow-hidden">
       {/* Layered background with transition */}
       <div className="absolute inset-0 transition-none"
         style={{ background: `linear-gradient(135deg, ${prevBg.bg1}, ${prevBg.bg2}, ${prevBg.bg3})` }} />
@@ -602,12 +528,12 @@ export function App() {
           transition: 'opacity 3s cubic-bezier(0.4, 0, 0.2, 1)',
         }} />
 
-      {/* Ambient blobs */}
-      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full blur-[100px] animate-blob transition-colors duration-[3000ms]"
+      {/* Ambient blobs - smaller on mobile */}
+      <div className="absolute top-1/4 -left-16 sm:-left-32 w-64 sm:w-[500px] h-64 sm:h-[500px] rounded-full blur-[60px] sm:blur-[100px] animate-blob transition-colors duration-[3000ms]"
         style={{ backgroundColor: style.blob1 }} />
-      <div className="absolute top-3/4 -right-32 w-[400px] h-[400px] rounded-full blur-[80px] animate-blob animation-delay-2000 transition-colors duration-[3000ms]"
+      <div className="absolute top-3/4 -right-16 sm:-right-32 w-48 sm:w-[400px] h-48 sm:h-[400px] rounded-full blur-[50px] sm:blur-[80px] animate-blob animation-delay-2000 transition-colors duration-[3000ms]"
         style={{ backgroundColor: style.blob2 }} />
-      <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] rounded-full blur-[70px] animate-blob animation-delay-4000 transition-colors duration-[3000ms]"
+      <div className="absolute top-1/2 left-1/3 w-40 sm:w-[300px] h-40 sm:h-[300px] rounded-full blur-[45px] sm:blur-[70px] animate-blob animation-delay-4000 transition-colors duration-[3000ms]"
         style={{ backgroundColor: style.blob3 }} />
 
       {/* Scene SVG */}
@@ -640,43 +566,43 @@ export function App() {
 
       {/* Greeting overlay */}
       <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md
-        transition-all duration-[1500ms] pointer-events-none
+        transition-all duration-[1500ms] pointer-events-none px-6
         ${showGreeting ? 'opacity-100' : 'opacity-0'}`}>
         <div className={`text-center transition-all duration-1000 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Sofa className="w-8 h-8 text-amber-400/50" />
+            <Sofa className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400/50" />
           </div>
-          <h1 className="text-white/80 tracking-wider" style={{ fontFamily: 'Caveat, cursive', fontSize: '2.8rem' }}>
+          <h1 className="text-white/80 tracking-wider text-2xl sm:text-4xl" style={{ fontFamily: 'Caveat, cursive' }}>
             {greeting.text} {greeting.emoji}
           </h1>
-          <p className="text-white/25 mt-2 text-sm tracking-[0.15em]" style={{ fontFamily: 'Nunito, sans-serif' }}>
+          <p className="text-white/25 mt-2 text-xs sm:text-sm tracking-[0.15em]" style={{ fontFamily: 'Nunito, sans-serif' }}>
             welcome to LofiCouch — sink in, zone out
           </p>
-          <p className="text-white/10 mt-1 text-[10px] tracking-[0.2em]" style={{ fontFamily: 'Space Mono, monospace' }}>
+          <p className="text-white/10 mt-1 text-[9px] sm:text-[10px] tracking-[0.2em]" style={{ fontFamily: 'Space Mono, monospace' }}>
             13 vibes • ambient sounds • infinite chill
           </p>
         </div>
       </div>
 
       {/* Main content */}
-      <div className={`relative z-30 min-h-screen flex flex-col transition-all duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`relative z-30 min-h-screen min-h-[100dvh] flex flex-col transition-all duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
         
         {/* Header */}
-        <header className="flex items-center justify-between p-4 md:p-5">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center backdrop-blur-xl border transition-colors duration-1000"
+        <header className="flex items-center justify-between p-3 sm:p-4 md:p-5 safe-top">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center backdrop-blur-xl border transition-colors duration-1000"
               style={{
                 backgroundColor: `${config.color}15`,
                 borderColor: `${config.color}15`,
               }}>
-              <Sofa className="w-4.5 h-4.5 transition-colors duration-1000" style={{ color: `${config.color}aa` }} />
+              <Sofa className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-colors duration-1000" style={{ color: `${config.color}aa` }} />
             </div>
             <div>
-              <span className="text-white/50 text-sm font-bold tracking-[0.15em] block leading-none"
+              <span className="text-white/50 text-xs sm:text-sm font-bold tracking-[0.15em] block leading-none"
                 style={{ fontFamily: 'Space Mono, monospace' }}>
                 LofiCouch
               </span>
-              <span className="text-white/15 text-[9px] tracking-[0.2em] uppercase"
+              <span className="text-white/15 text-[8px] sm:text-[9px] tracking-[0.2em] uppercase hidden sm:block"
                 style={{ fontFamily: 'Nunito, sans-serif' }}>
                 sink in, zone out
               </span>
@@ -684,9 +610,9 @@ export function App() {
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.05]">
+            <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/[0.03] border border-white/[0.05]">
               <div className="w-1 h-1 rounded-full animate-pulse" style={{ backgroundColor: config.color }} />
-              <span className="text-white/25 text-[10px] tracking-wider" style={{ fontFamily: 'Space Mono, monospace' }}>
+              <span className="text-white/25 text-[9px] sm:text-[10px] tracking-wider" style={{ fontFamily: 'Space Mono, monospace' }}>
                 {style.temp}
               </span>
             </div>
@@ -694,29 +620,31 @@ export function App() {
         </header>
 
         {/* Center content */}
-        <main className="flex-1 flex flex-col items-center justify-center px-4 gap-6 md:gap-8 -mt-4">
+        <main className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 gap-4 sm:gap-6 md:gap-8 py-4">
           <BreathingCircle color={config.color} />
           
           <Clock />
 
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-sm sm:max-w-md">
             <MusicPlayer currentVibe={vibe} onVibeChange={handleVibeChange} />
           </div>
 
-          <QuoteDisplay />
+          <div className="hidden sm:block">
+            <QuoteDisplay />
+          </div>
         </main>
 
         {/* Footer toolbar */}
-        <footer className="p-4 md:p-5">
+        <footer className="p-3 sm:p-4 md:p-5 safe-bottom">
           <div className="flex items-center justify-between max-w-lg mx-auto">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <TodoWidget />
-              <PomodoroTimer accentColor={config.color} />
+              <ClockTimer accentColor={config.color} />
               <SceneSelector currentScene={vibe} onSceneChange={handleVibeChange} />
             </div>
             
             <div className="flex items-center gap-2">
-              <span className="text-white/10 text-[10px] tracking-wider hidden sm:block" style={{ fontFamily: 'Nunito, sans-serif' }}>
+              <span className="text-white/10 text-[9px] sm:text-[10px] tracking-wider hidden sm:block" style={{ fontFamily: 'Nunito, sans-serif' }}>
                 made with
               </span>
               <Heart className="w-3 h-3 text-pink-400/20" fill="rgba(244,114,182,0.2)" />

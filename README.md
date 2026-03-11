@@ -61,7 +61,7 @@ Each vibe includes carefully mixed ambient layers:
 
 ### 🛠️ Productivity Tools
 
-- ⏱️ **Pomodoro Timer** — Focus/break sessions with circular progress
+- ⏰ **Clock-Style Focus Timer** — Drag the dial to set 1-60 minutes, or use preset buttons (5m, 15m, 25m, 45m, 60m)
 - ✅ **Todo List** — Persistent task management (localStorage)
 - 🕐 **Live Clock** — Current time and date display
 - 💭 **Rotating Quotes** — Calming, inspirational messages
@@ -147,7 +147,7 @@ loficouch/
 │   │   ├── Clock.tsx        # Time display
 │   │   ├── QuoteDisplay.tsx # Rotating quotes
 │   │   ├── TodoWidget.tsx   # Task list
-│   │   └── PomodoroTimer.tsx # Focus timer
+│   │   └── ClockTimer.tsx   # Draggable focus timer
 │   └── utils/
 │       └── cn.ts            # Class name utility
 ├── index.html

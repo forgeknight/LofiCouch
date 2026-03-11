@@ -1,25 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="couchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#8b5cf6"/>
-      <stop offset="100%" style="stop-color:#6366f1"/>
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
     </linearGradient>
+    <linearGradient id="cushionGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="headphoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b"/>
+      <stop offset="100%" style="stop-color:#312e81"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
+  
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#1a1625"/>
+  <circle cx="32" cy="32" r="28" fill="none" stroke="#f59e0b" stroke-width="0.5" opacity="0.3"/>
+  
   <!-- Couch base -->
-  <rect x="10" y="45" width="80" height="35" rx="8" fill="url(#couchGrad)"/>
+  <path d="M12 38 Q12 44 18 44 L46 44 Q52 44 52 38 L52 35 Q52 32 49 32 L15 32 Q12 32 12 35 Z" fill="url(#couchGrad)"/>
+  
   <!-- Couch back -->
-  <rect x="10" y="30" width="80" height="20" rx="6" fill="#7c3aed"/>
-  <!-- Couch arms -->
-  <rect x="5" y="35" width="12" height="40" rx="5" fill="#7c3aed"/>
-  <rect x="83" y="35" width="12" height="40" rx="5" fill="#7c3aed"/>
-  <!-- Cushions -->
-  <ellipse cx="35" cy="55" rx="15" ry="10" fill="#a78bfa" opacity="0.7"/>
-  <ellipse cx="65" cy="55" rx="15" ry="10" fill="#a78bfa" opacity="0.7"/>
-  <!-- Musical notes -->
-  <text x="25" y="28" font-size="16" fill="#c4b5fd">♪</text>
-  <text x="70" y="22" font-size="14" fill="#c4b5fd">♫</text>
-  <text x="50" y="18" font-size="12" fill="#ddd6fe">♪</text>
-  <!-- Legs -->
-  <rect x="18" y="78" width="6" height="10" rx="2" fill="#5b21b6"/>
-  <rect x="76" y="78" width="6" height="10" rx="2" fill="#5b21b6"/>
+  <path d="M14 32 Q14 24 20 24 L44 24 Q50 24 50 32" fill="url(#couchGrad)" opacity="0.9"/>
+  
+  <!-- Couch cushions -->
+  <ellipse cx="24" cy="36" rx="8" ry="4" fill="url(#cushionGrad)" opacity="0.8"/>
+  <ellipse cx="40" cy="36" rx="8" ry="4" fill="url(#cushionGrad)" opacity="0.8"/>
+  
+  <!-- Couch armrests -->
+  <rect x="8" y="28" width="6" height="14" rx="3" fill="url(#couchGrad)"/>
+  <rect x="50" y="28" width="6" height="14" rx="3" fill="url(#couchGrad)"/>
+  
+  <!-- Headphones -->
+  <g filter="url(#glow)">
+    <!-- Headband -->
+    <path d="M20 22 Q20 10 32 10 Q44 10 44 22" fill="none" stroke="url(#headphoneGrad)" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Left ear cup -->
+    <ellipse cx="18" cy="22" rx="5" ry="6" fill="url(#headphoneGrad)"/>
+    <ellipse cx="18" cy="22" rx="3" ry="4" fill="#4c1d95" opacity="0.5"/>
+    
+    <!-- Right ear cup -->
+    <ellipse cx="46" cy="22" rx="5" ry="6" fill="url(#headphoneGrad)"/>
+    <ellipse cx="46" cy="22" rx="3" ry="4" fill="#4c1d95" opacity="0.5"/>
+  </g>
+  
+  <!-- Music notes floating -->
+  <g fill="#f59e0b" opacity="0.8" filter="url(#glow)">
+    <!-- Note 1 -->
+    <circle cx="28" cy="16" r="2"/>
+    <rect x="29.5" y="10" width="1.2" height="6"/>
+    <path d="M30.5 10 Q34 9 34 12" fill="none" stroke="#f59e0b" stroke-width="1.2"/>
+    
+    <!-- Note 2 -->
+    <circle cx="38" cy="14" r="1.5"/>
+    <rect x="39" y="9" width="1" height="5"/>
+  </g>
+  
+  <!-- Couch legs -->
+  <rect x="16" y="44" width="3" height="4" rx="1" fill="#92400e"/>
+  <rect x="45" y="44" width="3" height="4" rx="1" fill="#92400e"/>
 </svg>
